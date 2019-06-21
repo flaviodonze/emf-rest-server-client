@@ -10,12 +10,14 @@ The link:https://www.eclipse.org/modeling/emf/[EMF] objects are serialized to JS
 
 Example of building a service proxy and receiving a simple EMF object "Code".
 
-```java
+[source,java,indent=0]
+----
 	URI apiUri = new URI("http://localhost:8080/services/");
 	RestClientBuilder client = RestClientBuilder.newBuilder().register(CommunicationUtil.getProvider()).baseUri(apiUri);
 	NotificationDefinitionService service = client.build(NotificationDefinitionService.class);
 	Code code = service.getCode();
-	
+----
+
 == Running
 
 Server Launch:
