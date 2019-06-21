@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2019 SCODi Solutions AG, CH-6375 Beckenried"
+    modelDirectory="/rest-common/src/main/java/" modelPluginID="com.softmodeler.model"
+    modelName="softmodeler" updateClasspath="false" nonNLSMarkers="true" codeFormatting="true"
+    commentFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
+    copyrightFields="false" importOrganizing="true" cleanup="true">
+  <foreignModel>softmodeler.ecore</foreignModel>
+  <genPackages prefix="Softmodeler" basePackage="com.softmodeler" disposableProviderFactory="true"
+      adapterFactory="false" ecorePackage="softmodeler.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="softmodeler.ecore#//ObjectState">
+      <genEnumLiterals ecoreEnumLiteral="softmodeler.ecore#//ObjectState/NEW"/>
+      <genEnumLiterals ecoreEnumLiteral="softmodeler.ecore#//ObjectState/PRODUCTION"/>
+      <genEnumLiterals ecoreEnumLiteral="softmodeler.ecore#//ObjectState/MODIFICATION"/>
+      <genEnumLiterals ecoreEnumLiteral="softmodeler.ecore#//ObjectState/DELETION"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="softmodeler.ecore#//LabelsType"/>
+    <genDataTypes ecoreDataType="softmodeler.ecore#//MailAddressType"/>
+    <genDataTypes ecoreDataType="softmodeler.ecore#//ResourceType"/>
+    <genClasses ecoreClass="softmodeler.ecore#//Attachment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//Attachment/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//Attachment/objectId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//Attachment/data"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="softmodeler.ecore#//BasicObject">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicObject/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicObject/domain"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicObject/locale"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//BasicObject/toString" body="return getId() + &quot; &quot; + getLocale();"/>
+    </genClasses>
+    <genClasses ecoreClass="softmodeler.ecore#//ObjectRef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//ObjectRef/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//ObjectRef/domain"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//ObjectRef/state"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//ObjectRef/labels"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//ObjectRef/appId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//ObjectRef/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//ObjectRef/nature"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//ObjectRef/toString" body="return getDefaultLabel();"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//ObjectRef/getWorkingId"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//ObjectRef/getDefaultLocale"
+          body="return getLabels().getDefaultLocale();"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//ObjectRef/getDefaultLabel"
+          body="return getLabels().getDefaultLabel();"/>
+    </genClasses>
+    <genClasses ecoreClass="softmodeler.ecore#//TreeNode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//TreeNode/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference softmodeler.ecore#//TreeNode/childs"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference softmodeler.ecore#//TreeNode/object"/>
+    </genClasses>
+    <genClasses ecoreClass="softmodeler.ecore#//TreeNodeChild">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//TreeNodeChild/nodeId"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference softmodeler.ecore#//TreeNodeChild/parent"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="softmodeler.ecore#//BasicCode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicCode/id"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference softmodeler.ecore#//BasicCode/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicCode/names"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicCode/descriptions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference softmodeler.ecore#//BasicCode/entries"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicCode/sortHint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicCode/domain"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicCode/active"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicCode/structure"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//BasicCode/getSegments"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//BasicCode/getLastSegment"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//BasicCode/getPureLastSegment"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//BasicCode/getFirstSegment"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//BasicCode/setParentPath">
+        <genParameters ecoreParameter="softmodeler.ecore#//BasicCode/setParentPath/parent"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="softmodeler.ecore#//Code"/>
+    <genClasses ecoreClass="softmodeler.ecore#//Category">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//Category/classifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//Category/associatedClassifier"/>
+    </genClasses>
+    <genClasses ecoreClass="softmodeler.ecore#//CodeEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//CodeEntry/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//CodeEntry/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//CodeEntry/value"/>
+    </genClasses>
+    <genClasses ecoreClass="softmodeler.ecore#//NotificationParticipant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//NotificationParticipant/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//NotificationParticipant/groupId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//NotificationParticipant/mailAddress"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference softmodeler.ecore#//NotificationParticipant/objectRef"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="softmodeler.ecore#//BasicNotificationDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicNotificationDefinition/notificationEventId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicNotificationDefinition/active"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicNotificationDefinition/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference softmodeler.ecore#//BasicNotificationDefinition/sender"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference softmodeler.ecore#//BasicNotificationDefinition/receivers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference softmodeler.ecore#//BasicNotificationDefinition/ccReceivers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference softmodeler.ecore#//BasicNotificationDefinition/bccReceivers"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference softmodeler.ecore#//BasicNotificationDefinition/delivery"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//BasicNotificationDefinition/identifier"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//BasicNotificationDefinition/toString"
+          body="return getDescription();"/>
+    </genClasses>
+    <genClasses ecoreClass="softmodeler.ecore#//NotificationDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//NotificationDefinition/includeFilter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//NotificationDefinition/excludeFilter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softmodeler.ecore#//NotificationDefinition/template"/>
+      <genOperations ecoreOperation="softmodeler.ecore#//NotificationDefinition/toString"
+          body="return super.toString();"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
