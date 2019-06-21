@@ -1,5 +1,17 @@
+= Sample EMF REST server-client application 
+
 A sample server client application which sends and receives link:https://www.eclipse.org/modeling/emf/[EMF (Eclipse Modeling Framework)] objects using JAX-RS.
 The server is a link:https://github.com/spring-projects/spring-boot[Spring Boot] application which publishes link:https://cxf.apache.org/[Apache CXF] remote services.
 The client demonstrates a very simple application which communicates with the server using link:https://github.com/eclipse/microprofile-rest-client[Rest Client for MicroProfile].
 
 The link:https://www.eclipse.org/modeling/emf/[EMF] objects are serialized to JSON using https://github.com/flaviodonze/emfjson-jackson.
+
+== Example
+
+Example of building a service proxy and receiving a simple EMF object "Code".
+
+```java
+	URI apiUri = new URI("http://localhost:8080/services/");
+	RestClientBuilder client = RestClientBuilder.newBuilder().register(CommunicationUtil.getProvider()).baseUri(apiUri);
+	NotificationDefinitionService service = client.build(NotificationDefinitionService.class);
+	Code code = service.getCode();
