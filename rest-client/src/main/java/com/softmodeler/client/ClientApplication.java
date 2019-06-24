@@ -20,8 +20,11 @@ import com.softmodeler.model.Code;
 import com.softmodeler.model.CodeEntry;
 import com.softmodeler.model.NotificationDefinition;
 import com.softmodeler.model.NotificationParticipant;
+import com.softmodeler.model.ObjectRef;
+import com.softmodeler.model.ObjectState;
 import com.softmodeler.model.TreeNode;
 import com.softmodeler.model.TreeNodeChild;
+import com.softmodeler.model.type.LabelsType;
 import com.softmodeler.model.type.ResourceType;
 
 public class ClientApplication {
@@ -216,6 +219,29 @@ public class ClientApplication {
 		if (node.getId() == null || node.getName() == null) {
 			return false;
 		}
+		if (node.getObject() == null) {
+			return false;
+		}
+		
+		ObjectRef objectRef = node.getObject();
+		if (!ObjectState.PRODUCTION.equals(objectRef.getState())) {
+			return false;
+		}
+		
+		if (objectRef.getLabels() == null) {
+			return false;
+		}
+		LabelsType labels = objectRef.getLabels();
+		if (!"label DE".equals(labels.getLabel("de", false))) {
+			return false;
+		}
+		if (!"label EN".equals(labels.getLabel("en", false))) {
+			return false;
+		}
+		if (!"label DE".equals(labels.getDefaultLabel())) {
+			return false;
+		}
+		
 		if (node.getChilds().size() != 1) {
 			return false;
 		}
