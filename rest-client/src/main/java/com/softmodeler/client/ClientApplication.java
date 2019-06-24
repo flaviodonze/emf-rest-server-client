@@ -17,6 +17,7 @@ import com.softmodeler.common.service.POJOService;
 import com.softmodeler.common.service.TreeNodeService;
 import com.softmodeler.model.Attachment;
 import com.softmodeler.model.Code;
+import com.softmodeler.model.CodeEntry;
 import com.softmodeler.model.NotificationDefinition;
 import com.softmodeler.model.NotificationParticipant;
 import com.softmodeler.model.TreeNode;
@@ -167,7 +168,19 @@ public class ClientApplication {
 		if (!"name DE".equals(code.getNames().getDefaultLabel())) {
 			return false;
 		}
-
+		
+		if (code.getEntries().size() != 2) {
+			return false;
+		}
+		CodeEntry entry1 = code.getEntries().get(0);
+		if (!"entry_id1".equals(entry1.getId()) || !"key1".equals(entry1.getKey()) || !"value1".equals(entry1.getValue())) {
+			return false;
+		}
+		CodeEntry entry2 = code.getEntries().get(1);
+		if (!"entry_id2".equals(entry2.getId()) || !"key2".equals(entry2.getKey()) || !"value2".equals(entry2.getValue())) {
+			return false;
+		}
+		
 		try {
 			Attachment attachment = service.getResource();
 			ResourceType resourceType = attachment.getData();

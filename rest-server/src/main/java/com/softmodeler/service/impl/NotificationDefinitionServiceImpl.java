@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import com.softmodeler.common.service.NotificationDefinitionService;
 import com.softmodeler.model.Attachment;
 import com.softmodeler.model.Code;
+import com.softmodeler.model.CodeEntry;
 import com.softmodeler.model.NotificationDefinition;
 import com.softmodeler.model.NotificationParticipant;
 import com.softmodeler.model.SoftmodelerFactory;
@@ -27,6 +28,18 @@ public class NotificationDefinitionServiceImpl implements NotificationDefinition
 		names.setLabel(0, "en", "name EN", false);
 		code.setNames(names);
 
+		CodeEntry entry1 = SoftmodelerFactory.eINSTANCE.createCodeEntry();
+		entry1.setId("entry_id1");
+		entry1.setKey("key1");
+		entry1.setValue("value1");
+		code.getEntries().add(entry1);
+		
+		CodeEntry entry2 = SoftmodelerFactory.eINSTANCE.createCodeEntry();
+		entry2.setId("entry_id2");
+		entry2.setKey("key2");
+		entry2.setValue("value2");
+		code.getEntries().add(entry2);
+		
 		return code;
 	}
 
