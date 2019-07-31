@@ -1,6 +1,8 @@
 package com.softmodeler.common.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,13 +15,21 @@ public interface POJOService extends BasicService {
 
 	@GET
 	@Path("/get")
-	public SampleObject get();
+	SampleObject get();
 
 	@POST
 	@Path("/set")
-	public void set(SampleObject object);
+	void set(SampleObject object);
 
 	@GET
 	@Path("/all")
-	public List<SampleObject> findAll();
+	List<SampleObject> findAll();
+	
+	@GET
+	@Path("/getSampleSet")
+	Set<SampleObject> getSampleSet();
+	
+	@GET
+	@Path("/getSampleMap")
+	Map<String, SampleObject> getSampleMap();
 }

@@ -2,7 +2,11 @@ package com.softmodeler.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.softmodeler.common.pojo.AssociationObject;
 import com.softmodeler.common.pojo.SampleObject;
@@ -38,4 +42,18 @@ public class POJOServiceImpl implements POJOService {
 		return all;
 	}
 
+	@Override
+	public Set<SampleObject> getSampleSet() {
+		return new HashSet<>(findAll());
+	}
+	
+	@Override
+	public Map<String, SampleObject> getSampleMap() {
+		Map<String, SampleObject> map = new HashMap<>();
+		List<SampleObject> result = findAll();
+		for (SampleObject o : result) {
+			map.put(o.getName(), o);
+		}
+		return map;
+	}
 }

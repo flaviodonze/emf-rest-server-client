@@ -6,6 +6,8 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
@@ -104,6 +106,39 @@ public class ClientApplication {
 				return false;
 			}
 		}
+		Set<SampleObject> resultSet = service.getSampleSet();
+		if (!(resultSet instanceof Set)) {
+			return false;
+		}
+		if (resultSet.size() != 10) {
+			return false;
+		}
+		for (int i = 0; i < 10; i++) {
+			boolean passed = false;
+			for (SampleObject obj : resultSet) {
+				if (("Test " + i).equals(obj.getName()) && obj.getId() == i) {
+					passed = true;
+					break;
+				}
+			}
+			if (passed == false) {
+				return false;
+			}
+		}
+		Map<String, SampleObject> resultMap = service.getSampleMap();
+		if (!(resultMap instanceof Map)) {
+			return false;
+		}
+		if (resultMap.size() != 10) {
+			return false;
+		}
+		for (int i = 0; i < 10; i++) {
+			SampleObject obj = resultMap.get("Test " + i);
+			if (obj == null) {
+				return false;
+			}
+		}
+		
 		return true;
 	}
 
