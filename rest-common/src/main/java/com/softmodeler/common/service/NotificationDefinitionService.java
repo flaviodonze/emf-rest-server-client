@@ -1,5 +1,9 @@
 package com.softmodeler.common.service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -33,8 +37,8 @@ public interface NotificationDefinitionService extends BasicService {
 	NotificationDefinition findByCode(@QueryParam("code") Code code);
 	
 	@GET
-	@Path("/getNotificationDefinition")
-	NotificationDefinition getNotificationDefinition();
+	@Path("/createNotificationDefinition")
+	NotificationDefinition createNotificationDefinition(@QueryParam("suffix") String suffix);
 
 	@POST
 	@Path("/setNotificationDefinition")
@@ -51,4 +55,30 @@ public interface NotificationDefinitionService extends BasicService {
 	@GET
 	@Path("/getObjectSet")
 	Set<ObjectRef> getObjectSet();
+
+	@GET
+	@Path("/testListGet")
+	List<NotificationDefinition> testListGet(@QueryParam("objects") List<NotificationDefinition> objects);
+	
+	@POST
+	@Path("/testListPost")
+	List<NotificationDefinition> testListPost(List<NotificationDefinition> objects);
+
+	@GET
+	@Path("/testSetGet")
+	Set<NotificationDefinition> testSetGet(@QueryParam("objects") Set<NotificationDefinition> objects);
+
+	@POST
+	@Path("/testSetPost")
+	Set<NotificationDefinition> testSetPost(Set<NotificationDefinition> objects);
+	
+	@GET
+	@Path("/testMapGet")
+	Map<String, NotificationDefinition> testMapGet(@QueryParam("objects") Map<String, NotificationDefinition> objects);
+
+	@POST
+	@Path("/testMapPost")
+	Map<String, NotificationDefinition> testMapPost(Map<String, NotificationDefinition> objects);
+	
+
 }

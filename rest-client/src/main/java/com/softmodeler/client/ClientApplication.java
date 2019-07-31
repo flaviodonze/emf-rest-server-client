@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -162,7 +165,7 @@ public class ClientApplication {
 			return false;
 		}
 
-		NotificationDefinition definition = service.getNotificationDefinition();
+		NotificationDefinition definition = service.createNotificationDefinition("");
 		if (definition == null) {
 			return false;
 		}
@@ -265,9 +268,111 @@ public class ClientApplication {
 				return false;
 			}
 		}
+		
+		String suffix1 = "_o1";
+		String suffix2 = "_o2";
+
+		NotificationDefinition o1 = service.createNotificationDefinition(suffix1);
+		NotificationDefinition o2 = service.createNotificationDefinition(suffix2);
+		List<NotificationDefinition> list = new ArrayList<>();
+		list.add(o1);
+		list.add(o2);
+		
+		List<NotificationDefinition> resultList = service.testListGet(list);
+		if (list.size() != resultList.size()) {
+			return false;
+		}
+		NotificationDefinition r1 = resultList.get(0);
+		NotificationDefinition r2 = resultList.get(1);
+		testNotificationResult(r1, r2, suffix1, suffix2);
+		
+		resultList = service.testListPost(list);
+		if (list.size() != resultList.size()) {
+			return false;
+		}
+
+		r1 = resultList.get(0);
+		r2 = resultList.get(1);
+		if (!testNotificationResult(r1, r2, suffix1, suffix2)) {
+			return false;
+		}
+		
+		Set<NotificationDefinition> set = new HashSet<>(list);
+		Set<NotificationDefinition> resultSet = service.testSetGet(set);
+		
+		if (set.size() != resultSet.size()) {
+			return false;
+		}
+
+		NotificationDefinition[] resultArray = resultSet.toArray(new NotificationDefinition[resultSet.size()]);
+		if (resultArray[0].getId().endsWith(suffix1)) {
+			r1 = resultArray[0];
+			r2 = resultArray[1];
+		} else {
+			r1 = resultArray[1];
+			r2 = resultArray[0];			
+		}
+		if (!testNotificationResult(r1, r2, suffix1, suffix2)) {
+			return false;
+		}
+		
+		resultSet = service.testSetPost(set);
+		if (set.size() != resultSet.size()) {
+			return false;
+		}
+
+		resultArray = resultSet.toArray(new NotificationDefinition[resultSet.size()]);
+		if (resultArray[0].getId().endsWith(suffix1)) {
+			r1 = resultArray[0];
+			r2 = resultArray[1];
+		} else {
+			r1 = resultArray[1];
+			r2 = resultArray[0];			
+		}
+		if (!testNotificationResult(r1, r2, suffix1, suffix2)) {
+			return false;
+		}
+		
+		Map<String, NotificationDefinition> map = new HashMap<>();
+		map.put(suffix1, o1);
+		map.put(suffix2, o2);
+		
+		Map<String, NotificationDefinition> resultMap = service.testMapGet(map);
+		if (map.size() != resultMap.size()) {
+			return false;
+		}
+		r1 = resultMap.get(suffix1);
+		r2 = resultMap.get(suffix2);
+		if (!testNotificationResult(r1, r2, suffix1, suffix2)) {
+			return false;
+		}
+		
+		resultMap = service.testMapPost(map);
+		if (map.size() != resultMap.size()) {
+			return false;
+		}
+		r1 = resultMap.get(suffix1);
+		r2 = resultMap.get(suffix2);
+		if (!testNotificationResult(r1, r2, suffix1, suffix2)) {
+			return false;
+		}
+		
 		return true;
 	}
 
+	private static boolean testNotificationResult(NotificationDefinition r1, NotificationDefinition r2, String suffix1, String suffix2) {
+		if (!r1.getId().endsWith(suffix1) || !r2.getId().endsWith(suffix2)) {
+			return false;
+		}
+		if (!r1.getSender().getGroupId().endsWith(suffix1) || !r2.getSender().getGroupId().endsWith(suffix2)) {
+			return false;
+		}
+		if (!r1.getDelivery().getNames().getDefaultLabel().endsWith(suffix1) || !r2.getDelivery().getNames().getDefaultLabel().endsWith(suffix2)) {
+			return false;
+		}
+		return true;
+	}
+	
 	private static boolean testTreeNodes(RestClientBuilder client) {
 		TreeNodeService service = client.build(TreeNodeService.class);
 

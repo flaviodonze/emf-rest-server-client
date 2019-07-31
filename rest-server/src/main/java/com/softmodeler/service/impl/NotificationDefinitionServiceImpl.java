@@ -2,7 +2,11 @@ package com.softmodeler.service.impl;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -48,34 +52,37 @@ public class NotificationDefinitionServiceImpl implements NotificationDefinition
 
 	@Override
 	public NotificationDefinition findByCode(Code code) {
-		NotificationDefinition definition = getNotificationDefinition();
+		NotificationDefinition definition = createNotificationDefinition("");
 		definition.setDelivery(code);
 		return definition;
 	}
 	@Override
-	public NotificationDefinition getNotificationDefinition() {
+	public NotificationDefinition createNotificationDefinition(String suffix) {
 		NotificationDefinition definition = SoftmodelerFactory.eINSTANCE.createNotificationDefinition();
-		definition.setId(EcoreUtil.generateUUID());
+		definition.setId(EcoreUtil.generateUUID()+suffix);
 		definition.setDomain(1111);
 
 		Code code = getCode();
+		if (!suffix.isEmpty()) {
+			code.getNames().setLabel(0, "de", code.getNames().getLabel("de", 0)+suffix);
+		}
 		definition.setDelivery(code);
 
 		NotificationParticipant sender = SoftmodelerFactory.eINSTANCE.createNotificationParticipant();
-		sender.setId(EcoreUtil.generateUUID());
-		sender.setGroupId("GROUP_ID");
-		sender.setMailAddress(new MailAddressType("sender@example.com", "Sender Test"));
+		sender.setId(EcoreUtil.generateUUID()+suffix);
+		sender.setGroupId("GROUP_ID"+suffix);
+		sender.setMailAddress(new MailAddressType("sender@example.com", "Sender Test"+suffix));
 		definition.setSender(sender);
 
 		NotificationParticipant ccReceiver1 = SoftmodelerFactory.eINSTANCE.createNotificationParticipant();
-		ccReceiver1.setId(EcoreUtil.generateUUID());
-		ccReceiver1.setGroupId("GROUP_ID");
+		ccReceiver1.setId(EcoreUtil.generateUUID()+suffix);
+		ccReceiver1.setGroupId("GROUP_ID"+suffix);
 		ccReceiver1.setMailAddress(new MailAddressType("ccReceiver1@example.com", "cc1 Receiver"));
 		definition.getCcReceivers().add(ccReceiver1);
 
 		NotificationParticipant ccReceiver2 = SoftmodelerFactory.eINSTANCE.createNotificationParticipant();
-		ccReceiver2.setId(EcoreUtil.generateUUID());
-		ccReceiver2.setGroupId("GROUP_ID");
+		ccReceiver2.setId(EcoreUtil.generateUUID()+suffix);
+		ccReceiver2.setGroupId("GROUP_ID"+suffix);
 		ccReceiver2.setMailAddress(new MailAddressType("ccReceiver2@example.com", "cc2 Receiver"));
 		definition.getCcReceivers().add(ccReceiver2);
 
@@ -128,4 +135,35 @@ public class NotificationDefinitionServiceImpl implements NotificationDefinition
 		set.add(obj2);
 		return set;
 	}
+	
+	@Override
+	public List<NotificationDefinition> testListGet(List<NotificationDefinition> objects) {
+		return new ArrayList<>(objects);
+	}
+	
+	@Override
+	public List<NotificationDefinition> testListPost(List<NotificationDefinition> objects) {
+		return new ArrayList<>(objects);
+	}
+	
+	@Override
+	public Set<NotificationDefinition> testSetGet(Set<NotificationDefinition> objects) {
+		return new HashSet<>(objects);
+	}
+	
+	@Override
+	public Set<NotificationDefinition> testSetPost(Set<NotificationDefinition> objects) {
+		return new HashSet<>(objects);
+	}
+	
+	@Override
+	public Map<String, NotificationDefinition> testMapGet(Map<String, NotificationDefinition> objects) {
+		return new HashMap<>(objects);
+	}
+	
+	@Override
+	public Map<String, NotificationDefinition> testMapPost(Map<String, NotificationDefinition> objects) {
+		return new HashMap<>(objects);
+	}
+	
 }
