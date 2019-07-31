@@ -44,6 +44,12 @@ public class NotificationDefinitionServiceImpl implements NotificationDefinition
 	}
 
 	@Override
+	public NotificationDefinition findByCode(Code code) {
+		NotificationDefinition definition = getNotificationDefinition();
+		definition.setDelivery(code);
+		return definition;
+	}
+	@Override
 	public NotificationDefinition getNotificationDefinition() {
 		NotificationDefinition definition = SoftmodelerFactory.eINSTANCE.createNotificationDefinition();
 		definition.setId(EcoreUtil.generateUUID());

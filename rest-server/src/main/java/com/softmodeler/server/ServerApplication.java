@@ -30,7 +30,7 @@ public class ServerApplication {
 	@Bean
 	public Server rsServer() {
 		JAXRSServerFactoryBean endpoint = new JAXRSServerFactoryBean();
-		endpoint.setProvider(CommunicationUtil.getProvider());
+		endpoint.setProviders(CommunicationUtil.getProviders());
 		endpoint.setBus(bus);
 		endpoint.setServiceBeans(Arrays.<Object>asList(new POJOServiceImpl(), new NotificationDefinitionServiceImpl(),
 				new TreeNodeServiceImpl()));

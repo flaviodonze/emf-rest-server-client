@@ -34,7 +34,10 @@ public class ClientApplication {
 
 		try {
 			URI apiUri = new URI("http://localhost:8080/services/");
-			RestClientBuilder client = RestClientBuilder.newBuilder().register(CommunicationUtil.getProvider()).baseUri(apiUri);
+			RestClientBuilder client = RestClientBuilder.newBuilder().baseUri(apiUri);
+			for (Object provider : CommunicationUtil.getProviders()) {
+				client.register(provider);
+			}
 
 			if (!testPOJO(client)) {
 				System.err.println("testPOJO # FAILED #");
@@ -181,6 +184,15 @@ public class ClientApplication {
 		}
 		CodeEntry entry2 = code.getEntries().get(1);
 		if (!"entry_id2".equals(entry2.getId()) || !"key2".equals(entry2.getKey()) || !"value2".equals(entry2.getValue())) {
+			return false;
+		}
+		
+		code.setId("new_id");
+		NotificationDefinition definition2 = service.findByCode(code);
+		if (definition2 == null) {
+			return false;
+		}
+		if (!"new_id".equals(definition2.getDelivery().getId())) {
 			return false;
 		}
 		
