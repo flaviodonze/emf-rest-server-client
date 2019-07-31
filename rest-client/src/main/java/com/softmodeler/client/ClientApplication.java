@@ -253,6 +253,18 @@ public class ClientApplication {
 			return false;
 		}
 
+		Set<ObjectRef> objectSet = service.getObjectSet();
+		if (objectSet.size() != 2) {
+			return false;
+		}
+		for (ObjectRef objectRef : objectSet) {
+			if (!objectRef.getId().startsWith("id_")) {
+				return false;
+			}
+			if (objectRef.getLabels() == null || !objectRef.getLabels().getDefaultLabel().startsWith("OBJ ")) {
+				return false;
+			}
+		}
 		return true;
 	}
 

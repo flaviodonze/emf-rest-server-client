@@ -2,6 +2,8 @@ package com.softmodeler.service.impl;
 
 import java.io.File;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -11,6 +13,7 @@ import com.softmodeler.model.Code;
 import com.softmodeler.model.CodeEntry;
 import com.softmodeler.model.NotificationDefinition;
 import com.softmodeler.model.NotificationParticipant;
+import com.softmodeler.model.ObjectRef;
 import com.softmodeler.model.SoftmodelerFactory;
 import com.softmodeler.model.type.LabelsType;
 import com.softmodeler.model.type.MailAddressType;
@@ -104,5 +107,25 @@ public class NotificationDefinitionServiceImpl implements NotificationDefinition
 	@Override
 	public void setResource(Attachment attachment) {
 		System.out.println("Server setResource():" + attachment);
+	}
+
+	@Override
+	public Set<ObjectRef> getObjectSet() {
+		Set<ObjectRef> set = new HashSet<>();
+		
+		ObjectRef obj1 = SoftmodelerFactory.eINSTANCE.createObjectRef();
+		obj1.setId("id_1");
+		LabelsType labels1 = new LabelsType();
+		labels1.setLabel(0, "de", "OBJ 1", true);
+		obj1.setLabels(labels1);
+		ObjectRef obj2 = SoftmodelerFactory.eINSTANCE.createObjectRef();
+		obj2.setId("id_2");
+		LabelsType labels2 = new LabelsType();
+		labels2.setLabel(0, "de", "OBJ 2", true);
+		obj2.setLabels(labels2);
+		
+		set.add(obj1);
+		set.add(obj2);
+		return set;
 	}
 }

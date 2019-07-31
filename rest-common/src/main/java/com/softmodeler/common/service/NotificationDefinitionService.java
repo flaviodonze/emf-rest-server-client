@@ -8,6 +8,7 @@ import javax.ws.rs.QueryParam;
 import com.softmodeler.model.Attachment;
 import com.softmodeler.model.Code;
 import com.softmodeler.model.NotificationDefinition;
+import com.softmodeler.model.ObjectRef;
 
 @Path("/NotificationDefinitionService")
 public interface NotificationDefinitionService extends BasicService {
@@ -46,4 +47,8 @@ public interface NotificationDefinitionService extends BasicService {
 	@POST
 	@Path("/setResource")
 	void setResource(Attachment attachment);
+	
+	@GET
+	@Path("/getObjectSet")
+	Set<ObjectRef> getObjectSet();
 }
