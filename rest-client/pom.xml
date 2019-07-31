@@ -16,7 +16,7 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<microprofile.version>1.3.2</microprofile.version>
+		<microprofile.version>1.3.3</microprofile.version>
 	</properties>
 
 	<dependencies>
