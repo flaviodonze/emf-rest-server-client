@@ -14,6 +14,8 @@ import java.util.Set;
 
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
+import com.softmodeler.common.ServerException;
+import com.softmodeler.common.ValidationException;
 import com.softmodeler.common.communication.CommunicationUtil;
 import com.softmodeler.common.pojo.AssociationObject;
 import com.softmodeler.common.pojo.SampleObject;
@@ -39,7 +41,7 @@ public class ClientApplication {
 
 		try {
 			URI apiUri = new URI("http://localhost:8080/services/");
-			RestClientBuilder client = RestClientBuilder.newBuilder().baseUri(apiUri);
+			RestClientBuilder client = RestClientBuilder.newBuilder().baseUri(apiUri).register(new ClientExceptionMapper());
 			for (Object provider : CommunicationUtil.getProviders()) {
 				client.register(provider);
 			}
@@ -141,6 +143,53 @@ public class ClientApplication {
 				return false;
 			}
 		}
+		
+		try {
+			service.testException();
+		} catch (Exception e) {
+			if (!e.getClass().equals(Exception.class)) {
+				return false;
+			}
+			if (!"plain exception".equals(e.getMessage())) {
+				return false;
+			}
+		}
+
+		try {
+			service.testRuntimeException();
+		} catch (Exception e) {
+			if (!e.getClass().equals(RuntimeException.class)) {
+				return false;
+			}
+			if (!"runtime exception".equals(e.getMessage())) {
+				return false;
+			}
+		}
+		
+		
+		try {
+			service.testServerException();
+		} catch (Exception e) {
+			if (!(e instanceof ServerException)) {
+				return false;
+			}
+			if (!"server exception".equals(e.getMessage())) {
+				return false;
+			}
+		}
+		
+		try {
+			service.testValidationException();
+		} catch (Exception e) {
+			if (!(e instanceof ValidationException)) {
+				return false;
+			}
+			if (!"validation exception".equals(e.getMessage())) {
+				return false;
+			}
+		}
+		
+		
 		
 		return true;
 	}

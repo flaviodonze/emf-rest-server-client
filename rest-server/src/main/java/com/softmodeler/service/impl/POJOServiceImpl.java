@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.softmodeler.common.ServerException;
+import com.softmodeler.common.ValidationException;
 import com.softmodeler.common.pojo.AssociationObject;
 import com.softmodeler.common.pojo.SampleObject;
 import com.softmodeler.common.service.POJOService;
@@ -55,5 +57,25 @@ public class POJOServiceImpl implements POJOService {
 			map.put(o.getName(), o);
 		}
 		return map;
+	}
+	
+	@Override
+	public void testException() throws Exception {
+		throw new Exception("plain exception");
+	}
+	
+	@Override
+	public void testRuntimeException() {
+		throw new RuntimeException("runtime exception");
+	}
+	
+	@Override
+	public void testServerException() throws ServerException {
+		throw new ServerException("server exception");		
+	}
+	
+	@Override
+	public void testValidationException() throws ValidationException {
+		throw new ValidationException("validation exception");
 	}
 }

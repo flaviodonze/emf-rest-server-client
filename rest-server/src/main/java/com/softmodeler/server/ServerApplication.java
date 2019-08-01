@@ -1,6 +1,8 @@
 package com.softmodeler.server;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.cxf.Bus;
 import org.apache.cxf.endpoint.Server;
@@ -29,8 +31,11 @@ public class ServerApplication {
 
 	@Bean
 	public Server rsServer() {
+		List<Object> providers = new ArrayList<>(CommunicationUtil.getProviders());
+		providers.add(new ServerExceptionMapper());
+		
 		JAXRSServerFactoryBean endpoint = new JAXRSServerFactoryBean();
-		endpoint.setProviders(CommunicationUtil.getProviders());
+		endpoint.setProviders(providers);
 		endpoint.setBus(bus);
 		endpoint.setServiceBeans(Arrays.<Object>asList(new POJOServiceImpl(), new NotificationDefinitionServiceImpl(),
 				new TreeNodeServiceImpl()));
