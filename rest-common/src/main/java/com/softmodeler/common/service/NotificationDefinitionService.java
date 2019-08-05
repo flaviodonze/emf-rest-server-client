@@ -13,10 +13,21 @@ import com.softmodeler.model.Attachment;
 import com.softmodeler.model.Code;
 import com.softmodeler.model.NotificationDefinition;
 import com.softmodeler.model.ObjectRef;
+import com.softmodeler.model.ObjectState;
 
 @Path("/NotificationDefinitionService")
 public interface NotificationDefinitionService extends BasicService {
 
+	/**
+	 * test enum
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@GET
+	@Path("/getState")
+	ObjectState getState(String id);
+	
 	/**
 	 * test return of simple EMF object
 	 * 

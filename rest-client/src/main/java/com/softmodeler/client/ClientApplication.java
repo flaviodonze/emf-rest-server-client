@@ -197,6 +197,11 @@ public class ClientApplication {
 	private static boolean testNotifications(RestClientBuilder client) {
 		NotificationDefinitionService service = client.build(NotificationDefinitionService.class);
 
+		ObjectState state = service.getState("id");
+		if (!ObjectState.PRODUCTION.equals(state)) {
+			return false;
+		}
+		
 		Code code = service.getCode();
 		if (code == null) {
 			return false;

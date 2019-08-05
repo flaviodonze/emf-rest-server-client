@@ -18,13 +18,19 @@ import com.softmodeler.model.CodeEntry;
 import com.softmodeler.model.NotificationDefinition;
 import com.softmodeler.model.NotificationParticipant;
 import com.softmodeler.model.ObjectRef;
+import com.softmodeler.model.ObjectState;
 import com.softmodeler.model.SoftmodelerFactory;
 import com.softmodeler.model.type.LabelsType;
 import com.softmodeler.model.type.MailAddressType;
 import com.softmodeler.model.type.ResourceType;
 
 public class NotificationDefinitionServiceImpl implements NotificationDefinitionService {
-
+	
+	@Override
+	public ObjectState getState(String id) {
+		return ObjectState.PRODUCTION;
+	}
+	
 	@Override
 	public Code getCode() {
 		Code code = SoftmodelerFactory.eINSTANCE.createCode();
