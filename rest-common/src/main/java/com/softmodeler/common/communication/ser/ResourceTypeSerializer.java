@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.softmodeler.model.type.ResourceType;
 
 public class ResourceTypeSerializer extends JsonSerializer<ResourceType> {
-
+	
 	@Override
 	public void serialize(ResourceType value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
 		if (value == null || value.getPath() == null) {
