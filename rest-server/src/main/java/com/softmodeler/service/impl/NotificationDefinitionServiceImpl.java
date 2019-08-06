@@ -27,8 +27,8 @@ import com.softmodeler.model.type.ResourceType;
 public class NotificationDefinitionServiceImpl implements NotificationDefinitionService {
 	
 	@Override
-	public ObjectState getState(String id) {
-		return ObjectState.PRODUCTION;
+	public ObjectState getState(ObjectState state) {
+		return state;
 	}
 	
 	@Override

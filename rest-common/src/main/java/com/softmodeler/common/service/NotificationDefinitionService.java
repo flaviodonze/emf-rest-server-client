@@ -21,12 +21,12 @@ public interface NotificationDefinitionService extends BasicService {
 	/**
 	 * test enum
 	 * 
-	 * @param id
+	 * @param state
 	 * @return
 	 */
 	@GET
 	@Path("/getState")
-	ObjectState getState(String id);
+	ObjectState getState(@QueryParam("state") ObjectState state);
 	
 	/**
 	 * test return of simple EMF object
