@@ -13,8 +13,7 @@ import com.softmodeler.model.type.ResourceType;
 public class ResourceTypeDeserializer extends JsonDeserializer<ResourceType> {
 
 	@Override
-	public ResourceType deserialize(JsonParser p, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
+	public ResourceType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 		ResourceType type = new ResourceType();
 		JsonNode node = p.getCodec().readTree(p);
 		String path = node.get("path").asText();
@@ -24,8 +23,7 @@ public class ResourceTypeDeserializer extends JsonDeserializer<ResourceType> {
 			if (binaryValue != null) {
 				type.setInputStream(new ByteArrayInputStream(binaryValue));
 			}
-			return type;
 		}
-		return null;
+		return type;
 	}
 }
