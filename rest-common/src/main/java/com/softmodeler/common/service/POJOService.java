@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 
 import com.softmodeler.common.ServerException;
 import com.softmodeler.common.ValidationException;
@@ -50,4 +51,8 @@ public interface POJOService extends BasicService {
 	@GET
 	@Path("/testValidationException")
 	void testValidationException() throws ValidationException;
+	
+	@GET
+	@Path("/testObjectParameter")
+	boolean testObjectParameter(@QueryParam("value") Object value);
 }

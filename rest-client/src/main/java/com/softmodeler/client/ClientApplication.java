@@ -189,7 +189,16 @@ public class ClientApplication {
 			}
 		}
 		
-		
+		if (!service.testObjectParameter("test-string")) {
+			return false;
+		}
+		if (!service.testObjectParameter(987654321)) {
+			return false;
+		}
+		if (!service.testObjectParameter(sampleObject)) {
+			return false;
+		}
+
 		
 		return true;
 	}

@@ -78,4 +78,27 @@ public class POJOServiceImpl implements POJOService {
 	public void testValidationException() throws ValidationException {
 		throw new ValidationException("validation exception");
 	}
+	
+	@Override
+	public boolean testObjectParameter(Object value) {
+		if (value != null) {
+			if (value instanceof String) {
+				return "test-string".equals(value);
+			}
+			if (value instanceof Integer) {
+				return value.equals(987654321);
+			}
+			if (value instanceof SampleObject) {
+				SampleObject sampleObject = (SampleObject) value;
+				if (!"new name".equals(sampleObject.getName()) || sampleObject.getId() != 99) {
+					return false;
+				}
+				if (sampleObject.getAssociationObject() == null) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
 }
