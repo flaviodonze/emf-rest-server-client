@@ -59,6 +59,14 @@ public interface NotificationDefinitionService extends BasicService {
 	@Path("/getResource")
 	Attachment getResource();
 
+	@GET
+	@Path("/getEmptyResource")
+	Attachment getEmptyResource();
+	
+	@GET
+	@Path("/getResourceList")
+	List<Attachment> getResourceList();
+	
 	@POST
 	@Path("/setResource")
 	void setResource(Attachment attachment);

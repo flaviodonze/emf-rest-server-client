@@ -118,6 +118,27 @@ public class NotificationDefinitionServiceImpl implements NotificationDefinition
 	}
 
 	@Override
+	public Attachment getEmptyResource() {
+		Attachment attachment = SoftmodelerFactory.eINSTANCE.createAttachment();
+		attachment.setId(EcoreUtil.generateUUID());
+		ResourceType resourceType = new ResourceType("path");
+		attachment.setData(resourceType);
+		attachment.setDomain(112121);
+		attachment.setKey("resource_key");
+		return attachment;
+	}
+	
+	@Override
+	public List<Attachment> getResourceList() {
+		List<Attachment> resources = new ArrayList<Attachment>();
+//		resources.add(getResource());
+//		resources.add(getResource());
+		resources.add(getEmptyResource());
+		resources.add(getEmptyResource());
+		return resources;
+	}
+	
+	@Override
 	public void setResource(Attachment attachment) {
 		System.out.println("Server setResource():" + attachment);
 	}

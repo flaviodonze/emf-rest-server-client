@@ -302,6 +302,11 @@ public class ClientApplication {
 			return false;
 		}
 		
+		List<Attachment> resourceList = service.getResourceList();
+		if (resourceList.size() != 2) {
+			return false;
+		}
+		
 		try {
 			Attachment attachment = service.getResource();
 			ResourceType resourceType = attachment.getData();
@@ -310,6 +315,9 @@ public class ClientApplication {
 			}
 
 			InputStream inputStream = resourceType.getInputStream();
+			if (inputStream == null) {
+				return false;
+			}
 			File outputFile = File.createTempFile("rest-test", ".txt");
 			Files.copy(inputStream, outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
@@ -321,6 +329,15 @@ public class ClientApplication {
 			service.setResource(attachment);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
+		}
+
+		Attachment attachment = service.getEmptyResource();
+		ResourceType resourceType = attachment.getData();
+		if (resourceType == null || resourceType.getFile() != null || resourceType.getFile() != null) {
+			return false;
+		}
+		if (!"path".equals(resourceType.getPath())) {
 			return false;
 		}
 
