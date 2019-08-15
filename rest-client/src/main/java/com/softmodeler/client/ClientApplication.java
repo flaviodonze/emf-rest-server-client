@@ -18,6 +18,7 @@ import com.softmodeler.common.ServerException;
 import com.softmodeler.common.ValidationException;
 import com.softmodeler.common.communication.CommunicationUtil;
 import com.softmodeler.common.pojo.AssociationObject;
+import com.softmodeler.common.pojo.PrivateObject;
 import com.softmodeler.common.pojo.SampleObject;
 import com.softmodeler.common.service.NotificationDefinitionService;
 import com.softmodeler.common.service.POJOService;
@@ -142,6 +143,14 @@ public class ClientApplication {
 			if (obj == null) {
 				return false;
 			}
+		}
+		
+		PrivateObject privateObject = service.getPrivateObject();
+		if (privateObject == null) {
+			return false;
+		}
+		if (!"1234 test".equals(privateObject.toString())) {
+			return false;
 		}
 		
 		try {

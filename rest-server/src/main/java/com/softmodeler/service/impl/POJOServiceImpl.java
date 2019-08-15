@@ -11,6 +11,7 @@ import java.util.Set;
 import com.softmodeler.common.ServerException;
 import com.softmodeler.common.ValidationException;
 import com.softmodeler.common.pojo.AssociationObject;
+import com.softmodeler.common.pojo.PrivateObject;
 import com.softmodeler.common.pojo.SampleObject;
 import com.softmodeler.common.service.POJOService;
 
@@ -57,6 +58,12 @@ public class POJOServiceImpl implements POJOService {
 			map.put(o.getName(), o);
 		}
 		return map;
+	}
+	
+	@Override
+	public PrivateObject getPrivateObject() {
+		PrivateObject object = new PrivateObject(1234, "test");
+		return object;
 	}
 	
 	@Override

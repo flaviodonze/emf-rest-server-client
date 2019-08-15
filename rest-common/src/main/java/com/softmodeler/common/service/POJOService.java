@@ -11,6 +11,7 @@ import javax.ws.rs.QueryParam;
 
 import com.softmodeler.common.ServerException;
 import com.softmodeler.common.ValidationException;
+import com.softmodeler.common.pojo.PrivateObject;
 import com.softmodeler.common.pojo.SampleObject;
 
 @Path("/POJOService")
@@ -36,6 +37,10 @@ public interface POJOService extends BasicService {
 	@Path("/getSampleMap")
 	Map<String, SampleObject> getSampleMap();
 
+	@GET
+	@Path("/getPrivateObject")
+	PrivateObject getPrivateObject();
+	
 	@GET
 	@Path("/testException")
 	void testException() throws Exception;

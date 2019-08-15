@@ -13,6 +13,7 @@ import org.emfjson.jackson.resource.JsonResourceFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.softmodeler.common.communication.ser.LabelsTypeSerializer;
 import com.softmodeler.common.communication.ser.ResourceTypeDeserializer;
 import com.softmodeler.common.communication.ser.ResourceTypeSerializer;
@@ -51,7 +52,8 @@ public class ExtendedEMFProvider extends JacksonJaxbJsonProvider {
 		module.addSerializer(LabelsType.class, new LabelsTypeSerializer());
 		
 		mapper.registerModule(module);
-	
+		mapper.registerModule(new ParameterNamesModule());
+
 		JsonResourceFactory factory = new JsonResourceFactory(mapper);
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
