@@ -16,20 +16,20 @@ public class CommunicationUtil {
 	public static final String EXCEPTION_MSG = "exceptionMsg";
 	/** 'exceptionDetail' response header key */
 	public static final String EXCEPTION_DETAIL = "exceptionDetail";
-	
+
 	private static ExtendedEMFProvider provider = null;
-	
+
 	public static JacksonJsonProvider getEMFProvider() {
-		if (provider==null) {
+		if (provider == null) {
 			provider = new ExtendedEMFProvider();
 		}
 		return provider;
 	}
-	
+
 	public static List<Object> getProviders() {
 		return Arrays.asList(getEMFProvider(), new ObjectMapperParamConverterProvider());
 	}
-	
+
 	public static ObjectMapper locateMapper(Class<?> clazz) {
 		return getEMFProvider().locateMapper(clazz, MediaType.APPLICATION_JSON_TYPE);
 	}
