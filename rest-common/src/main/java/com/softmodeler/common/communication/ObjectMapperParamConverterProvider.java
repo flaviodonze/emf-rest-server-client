@@ -21,15 +21,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * https://blog.dejavu.sk/inject-custom-java-types-via-jax-rs-parameter-annotations/
  */
 @Provider
-public class JacksonJsonParamConverterProvider implements ParamConverterProvider {
+public class ObjectMapperParamConverterProvider implements ParamConverterProvider {
 
 	@Context
 	private Providers providers;
 
 	@Override
 	public <T> ParamConverter<T> getConverter(final Class<T> rawType, final Type genericType, final Annotation[] annotations) {
-		// Check whether we can convert the given type with Jackson.
-		final MessageBodyReader<T> mbr = providers.getMessageBodyReader(rawType, genericType, annotations, MediaType.APPLICATION_JSON_TYPE);
+		if (String.class.equals(rawType) || rawType.isPrimitive()) {
+			return null;
+		}
+
+		MessageBodyReader<T> mbr = providers.getMessageBodyReader(rawType, genericType, annotations, MediaType.APPLICATION_JSON_TYPE);
 		if (mbr == null || !mbr.isReadable(rawType, genericType, annotations, MediaType.APPLICATION_JSON_TYPE)) {
 			return null;
 		}
@@ -41,6 +44,7 @@ public class JacksonJsonParamConverterProvider implements ParamConverterProvider
 		final ObjectMapper mapper = contextResolver != null ? contextResolver.getContext(rawType)
 				: CommunicationUtil.getEMFProvider().locateMapper(rawType, MediaType.APPLICATION_JSON_TYPE);
 
+		//		ObjectMapper mapper = CommunicationUtil.getEMFProvider().locateMapper(rawType, MediaType.APPLICATION_JSON_TYPE);
 		return new ParamConverter<T>() {
 			@Override
 			public T fromString(final String value) {

@@ -6,7 +6,7 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 public class CommunicationUtil {
 
@@ -19,16 +19,15 @@ public class CommunicationUtil {
 	
 	private static ExtendedEMFProvider provider = null;
 	
-	public static JacksonJaxbJsonProvider getEMFProvider() {
+	public static JacksonJsonProvider getEMFProvider() {
 		if (provider==null) {
 			provider = new ExtendedEMFProvider();
-//			provider = new SimpleEMFProvider();
 		}
 		return provider;
 	}
 	
 	public static List<Object> getProviders() {
-		return Arrays.asList(getEMFProvider(), new JacksonJsonParamConverterProvider());
+		return Arrays.asList(getEMFProvider(), new ObjectMapperParamConverterProvider());
 	}
 	
 	public static ObjectMapper locateMapper(Class<?> clazz) {
