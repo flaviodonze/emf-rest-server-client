@@ -17,20 +17,37 @@ public class CommunicationUtil {
 	/** 'exceptionDetail' response header key */
 	public static final String EXCEPTION_DETAIL = "exceptionDetail";
 
-	private static ExtendedEMFProvider provider = null;
+	/** singleton EMF provider instance */
+	private static EMFJsonProvider provider = null;
 
-	public static JacksonJsonProvider getEMFProvider() {
+	/**
+	 * return the EMF provider singleton instance
+	 *
+	 * @return
+	 */
+	public static JacksonJsonProvider getJsonProvider() {
 		if (provider == null) {
-			provider = new ExtendedEMFProvider();
+			provider = new EMFJsonProvider();
 		}
 		return provider;
 	}
 
+	/**
+	 * return the providers for the remote service configuration
+	 *
+	 * @return
+	 */
 	public static List<Object> getProviders() {
-		return Arrays.asList(getEMFProvider(), new ObjectMapperParamConverterProvider());
+		return Arrays.asList(getJsonProvider(), new ObjectMapperParamConverterProvider());
 	}
 
+	/**
+	 * locate the json object mapper for the passed type
+	 *
+	 * @param clazz
+	 * @return
+	 */
 	public static ObjectMapper locateMapper(Class<?> clazz) {
-		return getEMFProvider().locateMapper(clazz, MediaType.APPLICATION_JSON_TYPE);
+		return getJsonProvider().locateMapper(clazz, MediaType.APPLICATION_JSON_TYPE);
 	}
 }

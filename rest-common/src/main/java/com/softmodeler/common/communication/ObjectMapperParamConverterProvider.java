@@ -7,7 +7,6 @@ import java.lang.reflect.Type;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.ParamConverter;
 import javax.ws.rs.ext.ParamConverterProvider;
@@ -37,14 +36,7 @@ public class ObjectMapperParamConverterProvider implements ParamConverterProvide
 			return null;
 		}
 
-		// Obtain custom ObjectMapper for special handling.
-		final ContextResolver<ObjectMapper> contextResolver = providers.getContextResolver(ObjectMapper.class,
-				MediaType.APPLICATION_JSON_TYPE);
-
-		final ObjectMapper mapper = contextResolver != null ? contextResolver.getContext(rawType)
-				: CommunicationUtil.getEMFProvider().locateMapper(rawType, MediaType.APPLICATION_JSON_TYPE);
-
-		//		ObjectMapper mapper = CommunicationUtil.getEMFProvider().locateMapper(rawType, MediaType.APPLICATION_JSON_TYPE);
+		ObjectMapper mapper = CommunicationUtil.locateMapper(rawType);
 		return new ParamConverter<T>() {
 			@Override
 			public T fromString(final String value) {
