@@ -228,6 +228,16 @@ public class ClientApplication {
 			return false;
 		}
 		
+		String nullString = service.testNullString(null);
+		if (nullString != null) {
+			return false;
+		}
+		
+		Object nullObject = service.testNullObject(null);
+		if (nullObject != null) {
+			return false;
+		}
+		
 		return true;
 	}
 

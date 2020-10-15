@@ -113,4 +113,14 @@ public class POJOServiceImpl implements POJOService {
 	public Map<String, Object> testMap(Map<String, Object> map) {
 		return map;
 	}
+
+	@Override
+	public String testNullString(String param) {
+		return param;
+	}
+
+	@Override
+	public Object testNullObject(Object param) {
+		return param;
+	}
 }
