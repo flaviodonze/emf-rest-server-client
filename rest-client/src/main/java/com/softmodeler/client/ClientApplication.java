@@ -6,6 +6,7 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -196,6 +197,35 @@ public class ClientApplication {
 			if (!"validation exception".equals(e.getMessage())) {
 				return false;
 			}
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("string", "test");
+		map.put("integer", 12);
+		map.put("list", Arrays.asList("one", "two"));
+		map.put("object", sampleObject);
+//		map.put("null", null);
+
+		Map<String, Object> returnMap = service.testMap(map);
+		
+		if(map.size() != returnMap.size()) {
+			return false;
+		}
+		if (!"test".equals(returnMap.get("string"))) {
+			return false;
+		}
+		if ((Integer)returnMap.get("integer") != 12) {
+			return false;
+		}
+		if (!((List<?>)returnMap.get("list")).get(0).equals("one") || !((List<?>)returnMap.get("list")).get(1).equals("two")) {
+			return false;
+		}
+		
+		if (!(returnMap.get("object") instanceof SampleObject) || !"new name".equals(((SampleObject) returnMap.get("object")).getName()) || ((SampleObject) returnMap.get("object")).getId() != 99) {
+			return false;
+		}
+		if (returnMap.get("null") != null) {
+			return false;
 		}
 		
 		return true;

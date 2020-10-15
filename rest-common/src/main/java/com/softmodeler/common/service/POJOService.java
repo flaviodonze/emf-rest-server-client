@@ -60,4 +60,8 @@ public interface POJOService extends BasicService {
 	@GET
 	@Path("/testObjectParameter")
 	boolean testObjectParameter(@QueryParam("value") Object value);
+	
+	@GET
+	@Path("/testMap")
+	Map<String, Object> testMap(@QueryParam("map") Map<String, Object> map);
 }

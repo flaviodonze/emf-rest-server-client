@@ -108,4 +108,9 @@ public class POJOServiceImpl implements POJOService {
 		}
 		return false;
 	}
+	
+	@Override
+	public Map<String, Object> testMap(Map<String, Object> map) {
+		return map;
+	}
 }
