@@ -107,8 +107,8 @@ public class EMFJsonProvider extends JacksonJaxbJsonProvider {
 		builder.defaultDateFormat(dateFormat);
 		builder.defaultTimeZone(TimeZone.getDefault());
 		
-		builder.serializationInclusion(Include.NON_NULL);
-		builder.defaultPropertyInclusion(JsonInclude.Value.construct(Include.NON_NULL, Include.NON_NULL));
+		builder.serializationInclusion(Include.ALWAYS);
+		builder.defaultPropertyInclusion(JsonInclude.Value.construct(Include.ALWAYS, Include.ALWAYS));
 		builder.visibility(PropertyAccessor.ALL, Visibility.NONE);
 		builder.visibility(PropertyAccessor.FIELD, Visibility.ANY);
 		builder.visibility(PropertyAccessor.CREATOR, Visibility.ANY);

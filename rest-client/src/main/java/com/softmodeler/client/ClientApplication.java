@@ -204,7 +204,7 @@ public class ClientApplication {
 		map.put("integer", 12);
 		map.put("list", Arrays.asList("one", "two"));
 		map.put("object", sampleObject);
-//		map.put("null", null);
+		map.put("null", null);
 
 		Map<String, Object> returnMap = service.testMap(map);
 		
