@@ -227,6 +227,26 @@ public class ClientApplication {
 		if (returnMap.get("null") != null) {
 			return false;
 		}
+
+		List<String> list = new ArrayList<>();
+		list.add("one");
+		//list.add(null); // FAILS: https://stackoverflow.com/questions/64376404/using-apache-cxf-how-to-pass-a-list-containing-null
+		list.add("two");
+		List<String> returnList = service.testList(list);
+		
+		if (list.size() != returnList.size()) {
+			return false;
+		}
+		
+		if (!"one".equals(returnList.get(0))) {
+			return false;
+		}
+//		if (returnList.get(1) != null) {
+//			return false;
+//		}
+//		if (!"two".equals(returnList.get(2))) {
+//			return false;
+//		}
 		
 		String nullString = service.testNullString(null);
 		if (nullString != null) {

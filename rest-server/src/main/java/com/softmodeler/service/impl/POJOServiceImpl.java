@@ -115,6 +115,11 @@ public class POJOServiceImpl implements POJOService {
 	}
 
 	@Override
+	public List<String> testList(List<String> list) {
+		return list;
+	}
+	
+	@Override
 	public String testNullString(String param) {
 		return param;
 	}
