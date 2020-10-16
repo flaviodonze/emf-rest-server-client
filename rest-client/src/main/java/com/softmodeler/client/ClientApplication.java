@@ -102,6 +102,10 @@ public class ClientApplication {
 		sampleObject.setName("new name");
 		service.set(sampleObject);
 
+		SampleObject emptyName = new SampleObject();
+		emptyName.setId(999999999);
+		service.set(emptyName);
+		
 		List<SampleObject> result = service.findAll();
 
 		if (result.size() != 10) {
