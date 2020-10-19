@@ -18,6 +18,7 @@ import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import com.softmodeler.common.ServerException;
 import com.softmodeler.common.ValidationException;
 import com.softmodeler.common.communication.CommunicationUtil;
+import com.softmodeler.common.communication.RequestLoggingProvider;
 import com.softmodeler.common.pojo.AssociationObject;
 import com.softmodeler.common.pojo.PrivateObject;
 import com.softmodeler.common.pojo.SampleObject;
@@ -47,6 +48,7 @@ public class ClientApplication {
 			for (Object provider : CommunicationUtil.getProviders()) {
 				client.register(provider);
 			}
+			// client.register(new RequestLoggingProvider());
 
 			if (!testPOJO(client)) {
 				System.err.println("testPOJO # FAILED #");
