@@ -108,7 +108,10 @@ public class EMFJsonProvider extends JacksonJaxbJsonProvider {
 		builder.defaultTimeZone(TimeZone.getDefault());
 		
 		builder.serializationInclusion(Include.ALWAYS);
+
+		// required to be ALWAYS because of e.g. null values in maps e.g. workflow-variables 
 		builder.defaultPropertyInclusion(JsonInclude.Value.construct(Include.ALWAYS, Include.ALWAYS));
+
 		builder.visibility(PropertyAccessor.ALL, Visibility.NONE);
 		builder.visibility(PropertyAccessor.FIELD, Visibility.ANY);
 		builder.visibility(PropertyAccessor.CREATOR, Visibility.ANY);
